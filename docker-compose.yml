@@ -1,0 +1,17 @@
+version: '3'
+services:
+    stemchat:
+        ports:
+            - '49160:3000'
+        image: psnode:latest
+        environment:
+          - VIRTUAL_HOST= apptest.metastudio.org
+          - VIRTUAL_PORT=3000
+          - LETSENCRYPT_HOST= apptest.metastudio.org
+          - LETSENCRYPT_EMAIL= meetsurendrapatil@gmail.com
+
+networks:
+  default:
+    external:
+      name: surendra-network
+
