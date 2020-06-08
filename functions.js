@@ -152,7 +152,7 @@ function fetchUserInfo(req, res, userName, password) {
 }
 
 
-function fetchGroups(req, res, home, about, blog, project, feedback, logout, profile) {
+function fetchGroups(req, res, home, about, blog, project, feedback, logout, profile,curr_user) {
   var body = '';
   var url = secrets.url + 'groups' + '.json';
   var options = {
@@ -175,7 +175,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
      // console.log(groups);
 
       res.render("groups.ejs", {
-        home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, groups: groups
+        curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, groups: groups
       });
 
     });
@@ -192,7 +192,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
 
 
 
-function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, id) {
+function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, id,curr_user) {
   var body = '';
   var body2 = '';
   var body3 = '';
@@ -210,7 +210,6 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
   https.get(url1, options, function (response) {
     response.on('data', function (data) {
       body += data;
-
     });
     response.on('end', function () {
       body = JSON.parse(body);
@@ -235,9 +234,10 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
               body3 = JSON.parse(body3);
               //console.log("3");
               console.log(body3);
+              console.log("hello");
               //console.log(members);
               res.render("group.ejs", {
-                home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
+               curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
               });
 
             });
@@ -254,10 +254,10 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
 }
 
 //addded
-function fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,urid) {
+function fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,urid,curr_user) {
   var body = '';
   var url =  urid;
-  console.log(url);
+
   var options = {
     method: 'GET',
     headers: {
@@ -269,23 +269,15 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
     response.on('data', function (data) {
       body += data;
       //console.log("hello");
-
     });
     response.on('end', function () {
       body = JSON.parse(body);
       console.log(body.post_stream.posts);
-      
+
      // console.log(groups);
      res.send("chala");
-
-
     });
-
-
   }).on('error', function () {
     console.log('errorr');
   });
-
-
-
 }
