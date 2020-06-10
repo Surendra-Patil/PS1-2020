@@ -19,7 +19,7 @@
             <a href="javascript:void(0);" class="icon2" onclick="myFunction1()">
                 <i>☰</i>
         </a>
-       
+
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
             <a href='<%=profile%>' class="active">Profile</a>
@@ -29,7 +29,7 @@
             <a href='<%=about%>'>About</a>
             <a href='<%=blog%>'>Blog</a>
             <a href='<%=project%>'>Projects</a>
-            <a href="/">Public Groups</a>
+            <a href="/">Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
             <%if(!curr_user){%>
                 <a href='<%=home%>'>Login</a>
@@ -47,7 +47,7 @@
               <h2 class="content-subhead">Profile</h2>
               <hr>
               </hr>
-              <img src='plus.png' alt="profile pic round"/>  <h1>Add Username</h1><h1>Email</h1><br><h1>Name</h1><h1>User Type</h1>
+              <img src='https://ui-avatars.com/api/?name=<%=curr_user.name%>&rounded=true' alt="profile pic round"/>  <h1><%=curr_user.username%></h1><h1><%=curr_user.name%></h1><br><h1><%=curr_user.user_fields['1']%></h1>
               <div class="topnav" id="myTopnav">
                 <a href='<%=profile%>' class='active'>Summary</a>
                 <a href='<%=activity%>' >Activity</a>
@@ -64,11 +64,11 @@
 
 
 
-
-          <div class='foot'>
-              <p> MADE BY BITS 2020</p>
-          </div>
-
+              <!--
+              <div class='foot'>
+                  <p> MADE BY BITS 2020</p>
+              </div>
+              -->
 
       </div>
   </div>

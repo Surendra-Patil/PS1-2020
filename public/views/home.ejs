@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel ="stylesheet" href="css/home.css">
       <link rel="stylesheet" href="/css/pure_css.css">
+      <link rel="stylesheet" href="/css/quill.css">
 </head>
 
 <body>
@@ -20,37 +21,48 @@
   <div class="column left" >
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
+
       <a href='<%=about%>'>About</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
-      <a href="/">Public Groups</a>
+      <a href="/">Groups</a>
       <a href='<%=feedback%>'>Feedback</a>
       <a href='<%=profile%>'>Profile</a>
 
-      
         <a href="<%=logout%>">Logout</a>
-        
+
 
     </div>
 
        <div class="header">
         <button class="openbtn" onclick="openNav()">☰</button>
-        <input class="search-bar" type="text" placeholder="Search..">
+        <form class="" action="/home" method="post">
+        <button class="search-but" name="search_button" type="submit">GO</button>
+        <input class="search-bar" type="text" placeholder="Search.." name="search_text">
+        </form>
        </div>
+
 
   </div>
   <div class="column right" >
-      <div class="footer">
-         <button class="attachmentbtn"><i class="fa fa-2x fa-paperclip" aria-hidden="true"></i></button> 
-         <div data-placeholder="Type your message" contenteditable="true" class="edit"></div>
-       <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+      <div class="chatArea" id='chat'>
+
       </div>
-   
+      <div class="footer">
+
+
+         <center>
+           <div class="toolbar"></div>
+          <div contenteditable="true" class="edit" id='editor'></div>
+         </center>
+         <button type="button" name="post" id='saveDelta'>POST</button>
+
+       <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+
+      </div>
+
   </div>
 
-      <!-- Navigation links (hidden by default) -->
-
-      <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
 
 
@@ -65,6 +77,48 @@
             x
         }
     }
+    </script>
+
+<script src="/js/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+
+var quill_c = new Quill('#chat', {
+  modules:{
+    toolbar:false
+  },
+  placeholder:"",
+  scrollingContainer: '#chat',
+});
+quill_c.enable(false);
+  var options=[
+    ['bold','italics','underline','strike'],
+    ['blockquote','code-block'],
+    [{'header':1},{'header':2}],
+    [{'list':'ordered'},{'list':'bullet'}],
+     [{ 'script': 'sub'}, { 'script': 'super' }],
+     [{ 'indent': '-1'}, { 'indent': '+1' }],
+ [{ 'direction': 'rtl' }],
+ [{ 'color': [] }, { 'background': [] }],
+ [{ 'font': [] }],
+ [{ 'align': [] }],
+ ['link','image','video']
+  ];
+  var quill = new Quill('#editor', {
+    modules:{
+      toolbar:options,
+
+    },
+    placeholder:"Type your message",
+    scrollingContainer: '#editor',
+    theme: 'snow'
+  });
+  document.getElementById('saveDelta').addEventListener('click',function(){
+    quill_c.setContents(quill.getContents());
+    document.querySelector("#chat").scrollTop=document.querySelector("#chat").scrollHeight;
+    quill.setContents('');
+  });
 </script>
 </body>
 <style>
